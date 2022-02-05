@@ -1,4 +1,6 @@
 # ThisZeroIsOnUs
 This Coke is on us code generator. Written in Python
 
-To get the venue ID 
+# How to use
+
+Download the `src` folder and run the `menu.py` file. 
