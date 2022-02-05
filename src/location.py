@@ -4,6 +4,13 @@ import requests
 import json
 import random
 
+
+# This function will find the nearest participating stores and show you their venue ID. Due to the search endpoint needing co-ordinates rather than postcodes to find the nearest store, I added a Postcode - Co-ordrinate function.
+
+
+
+
+
 def locationModule(postcode):
 
   
