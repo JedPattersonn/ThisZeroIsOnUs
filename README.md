@@ -1,4 +1,4 @@
-# ThisZeroIsOnUs
+# This Zero Is On Us
 This Coke is on us code generator. Written in Python
 
 # How to use
