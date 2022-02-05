@@ -15,7 +15,7 @@ def locationModule(postcode):
 
   
 
-    postcode = postcode.replace(' ', '%20')
+    postcode = postcode.replace(' ', '%20') #Replace the space in the postcode to the correct format.
 
     url = f"https://api.promaptools.com/service/uk/postcode-lat-lng/get/?postcode={postcode}&key=17o8dysaCDrgv1c"
 
@@ -42,9 +42,6 @@ def locationModule(postcode):
         latitude = responseJSON["output"][0]["latitude"]
     except:
         print("Could not get co-ordinates")
-        input("Press enter to go back to the menu...")
-        
-
 
     url = "https://prod.api.atscale.digital/api/user/locations"
 
