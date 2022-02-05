@@ -23,7 +23,7 @@ def cokeModuleSetup():
         time.sleep(1.2) #Delay between each request
     print("\n")
     input("Press Enter to go back to main menu...")
-    mainMenu()
+    cokeSetup()
 
 def locationSetup():
     clear()
