@@ -71,6 +71,6 @@ def locationModule(postcode):
     JsonResponse = response.json()
     results = JsonResponse["data"]
     for i in results:
-        print("{} | {}".format(i["name"], i["_id"]))
+        print(f"{i["name"]} | {i["_id"]}")
 
 
