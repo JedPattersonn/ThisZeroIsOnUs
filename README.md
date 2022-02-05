@@ -12,4 +12,4 @@ Once you have your venue ID, select the `Free Coke` option and input your **GMAI
 
 After around 20 repetitions, there may be some bugs. Not entirely sure why but open a pull request if you think you have a fix!
 
-Proxies are required in the `proxies.txt` folder. I have provided some free one for you but you can add your own if you so wish.
+Proxies are required in the `proxies.txt` file. I have provided some free one for you but you can add your own if you so wish.
