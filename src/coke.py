@@ -5,33 +5,26 @@ import datetime
 import random
 import time
 import os
-from twilio.rest import Client
 
 def cokeMain(email, location, i):
     
-    account_sid = "AC98454ff8150b7d6275f9fd781ca7c32a"
-    auth_token = "f7cd936e3e1f1bb5ef24d8cf44d83518"
-    client = Client(account_sid, auth_token)
     
-    lines = open('proxies.txt').read().splitlines()
-    myline =random.choice(lines)
-    proxies = {"http":myline}
-
-    if i > 18:
-        print(f"[TASK {i}] | Sleeping for a minute to prevent rate limits...")
-        time.sleep(60)
     
-    firstName = names.get_first_name(gender='male')
-    lastName = names.get_last_name()
-    emailArray = []
-    f=lambda s:s[11:]and[s[0]+w+x for x in f(s[1:])for w in('.','')]or[s]
+    lines = open('proxies.txt').read().splitlines() #Open proxy file
+    myline =random.choice(lines) #Get a random line from file
+    proxies = {"http":myline} #Format proxy
+    
+    firstName = names.get_first_name(gender='male') #Get random first name
+    lastName = names.get_last_name() #Get random last name
+    emailArray = [] #Array of emails collected
+    f=lambda s:s[11:]and[s[0]+w+x for x in f(s[1:])for w in('.','')]or[s] #Gmail Dot trick to get thousands of sign ups forward to same gmail account
     for s in f(email):
-        emailArray.append(s)
+        emailArray.append(s) #Add all emails to array
     
-    email = random.choice(emailArray)
+    email = random.choice(emailArray) #Pick a random email from array
     
     
-    url = "https://prod.api.atscale.digital/api/user/signup"
+    url = "https://prod.api.atscale.digital/api/user/signup" #API endpoint
     payload = json.dumps({
     "firstName": firstName,
     "lastName": lastName,
@@ -48,7 +41,7 @@ def cokeMain(email, location, i):
     'content-type': 'application/json',
     'sec-ch-ua-mobile': '?0',
     'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/97.0.4692.71 Safari/537.36',
-    'campaignid': '61daefc99f0e07129c4a87af',
+    'campaignid': '61daefc99f0e07129c4a87af', #Campaign ID, update whenever a new campagin is started
     'sec-ch-ua-platform': '"macOS"',
     'accept': '*/*',
     'origin': 'https://www.thiszeroisonus.com',
@@ -61,30 +54,18 @@ def cokeMain(email, location, i):
 
     response = requests.request("POST", url, headers=headers, data=payload, proxies=proxies)
 
-    if response.text != "":
+    if response.text != "": #Check if the request response has a body
         response = response.json()
-        response1 = response["result"]
+        response1 = response["result"] #Will return False if the user has signed up or there is an error
         if response1 == False:
             time_now = datetime.datetime.now().strftime("%H:%M:%S")
-            print(f"[{time_now}] | Email already signed up")
-            print(response)
-        elif response1 == True:
+            print(f"[TASK {i}] | [{time_now}] | Email already signed up"
+        elif response1 == True: #Will respond with True if successful
             time_now = datetime.datetime.now().strftime("%H:%M:%S")
-            id = response["data"]["_id"]
-            print(f"\033[1;32;40m[TASK {i}] | [{time_now}] | {id} | Check email & phone")
-            responseURL = f"https://www.thiszeroisonus.com/location-check/{id}/email"
-            
-            
-            #https://www.thiszeroisonus.com/location-check/61f00b33d780017a3945a409/email
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            id = response["data"]["_id"] #Get the response ID which is used in the URL emailed
+            print(f"\033[1;32;40m[TASK {i}] | [{time_now}] | {id} | Check email")
+            responseURL = f"https://www.thiszeroisonus.com/location-check/{id}/email" #This is the URL format you will get emailed. In the event that you do not receive emails, you can use this string manually.
+    
     else:
-        print(f"[TASK {i}] | Error, retrying...")
+        print(f"[TASK {i}] | Error...") #There was no body
 
